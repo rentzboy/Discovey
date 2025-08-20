@@ -111,9 +111,9 @@ int main(void)
   MX_GPIO_Init();
   MX_TIM2_Init();
   MX_USART1_UART_Init();
-  MX_USART2_UART_Init();
-  MX_I2C1_Init();
-  MX_I2C2_Init();
+  //MX_USART2_UART_Init();
+  //MX_I2C1_Init();
+  //MX_I2C2_Init();
   /* USER CODE BEGIN 2 */
   /* Start Timer event generation */
   HAL_TIM_Base_Start_IT(&htim2);
@@ -124,21 +124,16 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-    //HAL_TIM_PeriodElapsedCallback(&htim2);
+    //HAL_TIM_PeriodElapsedCallback(&htim2); => no la llamamos, se ejecuta mediante interrupt
     //Se ejecuta HAL_TIM_PeriodElapsedCallback() mediante interrupt, al reset el TIM2: funciona
+
     //SEGGER SWO: funciona
     SWO_PrintString("Testing SWO_PrintString()\n");
+
     //Redirect printf to SWO with _write() and ITM_SendChar(): funciona
     printf("Hello World \n");
+
     HAL_Delay(2000);
-    //SEGGER RTT 
-    SEGGER_RTT_WriteString(0, "###### Testing SEGGER_printf() ######\r\n");
-    SEGGER_RTT_printf(0, "printf Test: %%c,         'S' : %c.\r\n", 'S');
-    SEGGER_RTT_printf(0, "printf Test: %%5c,        'E' : %5c.\r\n", 'E');
-    SEGGER_RTT_printf(0, "printf Test: %%-5c,       'G' : %-5c.\r\n", 'G');
-    SEGGER_RTT_printf(0, "printf Test: %%5.3c,      'G' : %-5c.\r\n", 'G');
-    SEGGER_RTT_printf(0, "printf Test: %%.3c,       'E' : %-5c.\r\n", 'E');
-    SEGGER_RTT_printf(0, "printf Test: %%c,         'R' : %c.\r\n", 'R');
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
