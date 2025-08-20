@@ -128,9 +128,12 @@ int main(void)
     //Se ejecuta HAL_TIM_PeriodElapsedCallback() mediante interrupt, al reset el TIM2: funciona
     //SEGGER SWO: funciona
     SWO_PrintString("Testing SWO_PrintString()\n");
-    //Redirect printf to SWO with _write() and ITM_SendChar(): funciona
-    printf("Hello World \n");
+    //Redirect printf to SWO with _write() and ITM_SendChar(): funciona si activamos int_write()
+    //leer el comentario de la funcion
+    //printf("Hello World \n");
+
     HAL_Delay(2000);
+    
     //SEGGER RTT 
     SEGGER_RTT_WriteString(0, "###### Testing SEGGER_printf() ######\r\n");
     SEGGER_RTT_printf(0, "printf Test: %%c,         'S' : %c.\r\n", 'S');
