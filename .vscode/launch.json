@@ -26,26 +26,7 @@
             "runToEntryPoint": "main", // else it starts at reset handler - not interested
             //"preAttachCommands": [""], //you can execute command instead of task
             "svdFile": "${workspaceFolder}/STM32F303.svd", // Include svd to watch device peripherals
-            "swoConfig": // currently (v1.7.0) not supported
-            {
-                "seoconfig": "disabled", // currently (v1.7.0) not supported
-                "swoPath": "",
-                "swoPort": "",
-                "enabled": false,
-                "cpuFrequency": 16000000,
-                "swoFrequency": 2000000,
-                "source": "probe",
-                "decoders":
-                [
-                    {
-                        "label": "ITM port 0 output",
-                        "type": "console",
-                        "port": 0,
-                        "showOnStartup": true,
-                        "encoding": "ascii"
-                    }
-                ]
-            },
+            "swoConfig": {}, // currently (v1.7.0) not supported
             "showDevDebugOutput": "vscode",
             //"postDebugTask": "Kill st-util",
         },
@@ -71,97 +52,6 @@
             "showDevDebugOutput": "parsed",
             //"postDebugTask": "Kill st-util",
         },
-        //JLink launch
-        {
-            "type": "cortex-debug", //define la lista de atributos para la config. mediante IntelliSense
-            "name": "JLink launch",
-            "cwd": "${workspaceRoot}",
-            "executable": "${workspaceRoot}/build/CubeMX.elf",
-            "request": "launch",
-            "servertype": "jlink",
-            "device": "STM32F303VC",
-            "interface": "swd",
-            "runToEntryPoint": "main", // otherwise, it starts at reset handler - not interested
-            "preLaunchTask": "Build all", // task configured in tasks.json
-            "preLaunchCommands": [],
-            "svdFile": "${workspaceFolder}/STM32F303.svd", // Include svd to watch device peripherals
-            "liveWatch": {
-                "enabled": false,
-                "samplesPerSecond": 4
-            },
-            "rttConfig": { //esta si que funciona por JLinkRTTViewerExe
-                "enabled": true,
-                "address": "auto",
-                "decoders": [
-                    {
-                        "port": 0,
-                        "type": "console"
-                    }
-                ]
-            },
-            "swoConfig"://No consiguo que funcione ni x vscode ni por JLinkSWOViewerExe
-            {
-                "enabled": false,
-                "cpuFrequency": 16000000,
-                "swoFrequency": 2000000,
-                "source": "probe",
-                "decoders":
-                [
-                    {
-                        "label": "ITM port 0",
-                        "type": "console",
-                        "port": 0,
-                        "showOnStartup": true,
-                        "encoding": "ascii"
-                    }
-                ]
-            }
-        },
-        //JLink attach
-        {
-            "type": "cortex-debug",
-            "name": "JLink attach",
-            "cwd": "${workspaceRoot}",
-            "executable": "${workspaceRoot}/build/CubeMX.elf",
-            "request": "attach",
-            "servertype": "jlink",
-            "device": "STM32F303VC",
-            "interface": "swd",
-            "runToEntryPoint": "main",
-            "preAttachCommands": [],
-            "svdFile": "${workspaceFolder}/STM32F303.svd", // Include svd to watch device peripherals
-            "liveWatch": {
-                "enabled": false,
-                "samplesPerSecond": 4
-            },
-            "rttConfig": { //esta si que funciona por JLinkRTTViewerExe
-                "enabled": true,
-                "address": "auto",
-                "decoders": [
-                    {
-                        "port": 0,
-                        "type": "console"
-                    }
-                ]
-            },
-            "swoConfig": //No consiguo que funcione ni x vscode ni por JLinkSWOViewerExe
-            {
-                "enabled": false,
-                "cpuFrequency": 16000000,
-                "swoFrequency": 2250000,
-                "source": "probe",
-                "decoders":
-                [
-                    {
-                        "label": "ITM port 0",
-                        "type": "console",
-                        "port": 0,
-                        "showOnStartup": true,
-                        "encoding": "ascii"
-                    }
-                ]
-            }
-        },
         //St-util launch => flash anytime
         {
             "name": "st-util launch",
@@ -177,9 +67,9 @@
             "runToEntryPoint": "main", // otherwise, it starts at reset handler - not interested
             "preLaunchTask": "Build all", // configured in tasks.json
             "svdFile": "${workspaceFolder}/STM32F303.svd", // Include svd to watch device peripherals
-            "swoConfig":
+            "swoConfig":// currently (v1.7.0) not supported
             {
-                "enabled": false, // currently (v1.7.0) not supported
+                "enabled": false, 
                 "cpuFrequency": 16000000,
                 "swoFrequency": 2000000,
                 "source": "probe",
@@ -194,7 +84,7 @@
                     }
                 ]
             }, 
-            //"showDevDebugOutput": "parsed",
+            "showDevDebugOutput": "parsed",
             "postDebugTask": "Kill st-util", //para evitar el error: 
         },
         //St-util attach
@@ -210,9 +100,9 @@
             "device": "STM32F303VCT6", //STM32F303VC en caso de error
             "interface": "swd",
             "runToEntryPoint": "main", // else it starts at reset handler - not interested
-            "svdFile": "${workspaceFolder}/STM32F303.svd" // Include svd to watch device peripherals
-            //"showDevDebugOutput": "parsed",
-            //"postDebugTask": "Kill st-util",
+            "svdFile": "${workspaceFolder}/STM32F303.svd", // Include svd to watch device peripherals
+            "showDevDebugOutput": "parsed",
+            "postDebugTask": "Kill st-util",
         },
         //SWO separada (serial) --- COPIADO DE CHATGPT => NO FUNCIONA
         {
