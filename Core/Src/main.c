@@ -130,8 +130,9 @@ int main(void)
     //SEGGER SWO: funciona
     SWO_PrintString("Testing SWO_PrintString()\n");
 
-    //Redirect printf to SWO with _write() and ITM_SendChar(): funciona
-    printf("Hello World \n");
+    //Redirect printf to SWO with _write() and ITM_SendChar()
+    //Funciona si activamos int _write(), leer el comentario de la función
+    //printf("Hello World \n");
 
     HAL_Delay(2000);
     /* USER CODE END WHILE */

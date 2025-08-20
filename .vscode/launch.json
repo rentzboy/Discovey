@@ -24,10 +24,9 @@
             "device": "STM32F303VCT6", //STM32F303VC en caso de error
             "interface": "swd",
             "runToEntryPoint": "main", // else it starts at reset handler - not interested
-            //"preLaunchTask": "Build all", // only for "launch"
             //"preAttachCommands": [""], //you can execute command instead of task
             "svdFile": "${workspaceFolder}/STM32F303.svd", // Include svd to watch device peripherals
-            "swoConfig":
+            "swoConfig": // currently (v1.7.0) not supported
             {
                 "seoconfig": "disabled", // currently (v1.7.0) not supported
                 "swoPath": "",
@@ -65,8 +64,8 @@
             "device": "STM32F303VCT6", //STM32F303VC en caso de error
             "interface": "swd",
             "runToEntryPoint": "main", // else it starts at reset handler - not interested
-            //"preLaunchTask": "Build all", // configured in tasks.json
-            //"preAttachCommands": [""], //you can execute command instead of task
+            "preLaunchTask": "Build all", // IMPORTANTE para flashear el new binario. configured in tasks.json
+            //"preLaunchCommands": [""], //you can execute command instead of task
             "svdFile": "${workspaceFolder}/STM32F303.svd", // Include svd to watch device peripherals
             "swoConfig": {}, // currently (v1.7.0) not supported
             "showDevDebugOutput": "parsed",
@@ -84,15 +83,25 @@
             "interface": "swd",
             "runToEntryPoint": "main", // otherwise, it starts at reset handler - not interested
             "preLaunchTask": "Build all", // task configured in tasks.json
-            //"preLaunchCommands" not allowed for JLink
+            "preLaunchCommands": [],
             "svdFile": "${workspaceFolder}/STM32F303.svd", // Include svd to watch device peripherals
             "liveWatch": {
                 "enabled": false,
                 "samplesPerSecond": 4
             },
-            "swoConfig":
-            {
+            "rttConfig": { //esta si que funciona por JLinkRTTViewerExe
                 "enabled": true,
+                "address": "auto",
+                "decoders": [
+                    {
+                        "port": 0,
+                        "type": "console"
+                    }
+                ]
+            },
+            "swoConfig"://No consiguo que funcione ni x vscode ni por JLinkSWOViewerExe
+            {
+                "enabled": false,
                 "cpuFrequency": 16000000,
                 "swoFrequency": 2000000,
                 "source": "probe",
@@ -119,17 +128,15 @@
             "device": "STM32F303VC",
             "interface": "swd",
             "runToEntryPoint": "main",
-            "preLaunchTask": "Build all", // configured in tasks.json
-            //"preLaunchCommands" not allowed for JLink
+            "preAttachCommands": [],
             "svdFile": "${workspaceFolder}/STM32F303.svd", // Include svd to watch device peripherals
             "liveWatch": {
                 "enabled": false,
                 "samplesPerSecond": 4
             },
-            "rttConfig": {
+            "rttConfig": { //esta si que funciona por JLinkRTTViewerExe
                 "enabled": true,
                 "address": "auto",
-                // "clearSearch": false    // OpenOCD users may have to un-comment this
                 "decoders": [
                     {
                         "port": 0,
@@ -137,7 +144,7 @@
                     }
                 ]
             },
-            /* "swoConfig":
+            "swoConfig": //No consiguo que funcione ni x vscode ni por JLinkSWOViewerExe
             {
                 "enabled": false,
                 "cpuFrequency": 16000000,
@@ -153,7 +160,7 @@
                         "encoding": "ascii"
                     }
                 ]
-            }*/
+            }
         },
         //St-util launch => flash anytime
         {
@@ -169,7 +176,6 @@
             "interface": "swd",
             "runToEntryPoint": "main", // otherwise, it starts at reset handler - not interested
             "preLaunchTask": "Build all", // configured in tasks.json
-            //"preLaunchCommands": [""], //you can execute command instead of task
             "svdFile": "${workspaceFolder}/STM32F303.svd", // Include svd to watch device peripherals
             "swoConfig":
             {
@@ -204,8 +210,6 @@
             "device": "STM32F303VCT6", //STM32F303VC en caso de error
             "interface": "swd",
             "runToEntryPoint": "main", // else it starts at reset handler - not interested
-            //"preLaunchTask": "Build all", // configured in tasks.json
-            //"preAttachCommands": [""], //you can execute command instead of task
             "svdFile": "${workspaceFolder}/STM32F303.svd" // Include svd to watch device peripherals
             //"showDevDebugOutput": "parsed",
             //"postDebugTask": "Kill st-util",

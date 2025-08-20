@@ -68,11 +68,12 @@
                 "color": "terminal.ansiYellow"
             },
         },
-        /* CMake build
+        // CMake build
         {
             "label": "CMake: build",
             "type": "cmake",
             "command": "build",
+            "hide": true,
             "targets": [
                 "[N/A - Select Kit]"
             ],
@@ -83,7 +84,7 @@
             },
             "problemMatcher": [],
             "detail": "CMake template build task"
-        },*/
+        },
         /* CPP Build -NO probado-
         {
             "type": "cppbuild",
