@@ -8,74 +8,11 @@
     "version": "0.2.0",
     "projectName": "Discovery",
     "configurations": [
-
-        //STlink attach
-        {
-            "name": "STlink attach",
-            "cwd": "${workspaceRoot}",
-            "executable": "${workspaceRoot}/build/CubeMX.elf",
-            "request": "attach",
-            "type": "cortex-debug",
-            "servertype": "stlink", // cortex-debug no admite swo para stlink ni st-util
-            "serverArgs": ["--shared", "--swo-port", "50005", "--verbose", "--log-level", "31"],
-            "stlinkPath": "/opt/st/stm32cubeclt/STLink-gdb-server/bin/ST-LINK_gdbserver",
-            "stm32cubeprogrammer": "/opt/st/stm32cubeclt/STM32CubeProgrammer/bin",
-            "debuggerArgs": [],
-            "device": "STM32F303VCT6", //STM32F303VC en caso de error
-            "interface": "swd",
-            "runToEntryPoint": "main", // else it starts at reset handler - not interested
-            //"preLaunchTask": "Build all", // only for "launch"
-            //"preAttachCommands": [""], //you can execute command instead of task
-            "svdFile": "${workspaceFolder}/STM32F303.svd", // Include svd to watch device peripherals
-            "swoConfig":
-            {
-                "seoconfig": "disabled", // currently (v1.7.0) not supported
-                "swoPath": "",
-                "swoPort": "",
-                "enabled": false,
-                "cpuFrequency": 16000000,
-                "swoFrequency": 2000000,
-                "source": "probe",
-                "decoders":
-                [
-                    {
-                        "label": "ITM port 0 output",
-                        "type": "console",
-                        "port": 0,
-                        "showOnStartup": true,
-                        "encoding": "ascii"
-                    }
-                ]
-            },
-            "showDevDebugOutput": "vscode",
-            //"postDebugTask": "Kill st-util",
-        },
-        //STlink launch
-        {
-            "name": "STlink launch",
-            "cwd": "${workspaceRoot}",
-            "executable": "${workspaceRoot}/build/CubeMX.elf",
-            "request": "launch",
-            "type": "cortex-debug",
-            "servertype": "stlink", // cortex-debug no admite swo para stlink ni st-util
-            "serverArgs": [/*"--swo-port", "50005",*/ "--verbose", "--log-level", "31"],
-            "stlinkPath": "/opt/st/stm32cubeclt/STLink-gdb-server/bin/ST-LINK_gdbserver",
-            "stm32cubeprogrammer": "/opt/st/stm32cubeclt/STM32CubeProgrammer/bin",
-            "debuggerArgs": [],
-            "device": "STM32F303VCT6", //STM32F303VC en caso de error
-            "interface": "swd",
-            "runToEntryPoint": "main", // else it starts at reset handler - not interested
-            //"preLaunchTask": "Build all", // configured in tasks.json
-            //"preAttachCommands": [""], //you can execute command instead of task
-            "svdFile": "${workspaceFolder}/STM32F303.svd", // Include svd to watch device peripherals
-            "swoConfig": {}, // currently (v1.7.0) not supported
-            "showDevDebugOutput": "parsed",
-            //"postDebugTask": "Kill st-util",
-        },
+        //Las config para st-util y st-link están en la rama stlink
         //JLink launch
         {
-            "type": "cortex-debug", //define la lista de atributos para la config. mediante IntelliSense
             "name": "JLink launch",
+            "type": "cortex-debug", //define la lista de atributos para la config. mediante IntelliSense
             "cwd": "${workspaceRoot}",
             "executable": "${workspaceRoot}/build/CubeMX.elf",
             "request": "launch",
@@ -86,13 +23,14 @@
             "preLaunchTask": "Build all", // task configured in tasks.json
             //"preLaunchCommands" not allowed for JLink
             "svdFile": "${workspaceFolder}/STM32F303.svd", // Include svd to watch device peripherals
-            "liveWatch": {
+            "liveWatch": 
+            {
                 "enabled": false,
                 "samplesPerSecond": 4
             },
-            "swoConfig":
+            "swoConfig"://no funciona
             {
-                "enabled": true,
+                "enabled": false,
                 "cpuFrequency": 16000000,
                 "swoFrequency": 2000000,
                 "source": "probe",
@@ -106,12 +44,27 @@
                         "encoding": "ascii"
                     }
                 ]
+            },
+            "postLaunchCommands": 
+            [
+                "monitor swo start 16000000 2250000" //ni con esto funciona SWO
+            ],
+            "rttConfig": 
+            {
+                "enabled": false,
+                "address": "auto",
+                "decoders": [
+                    {
+                        "port": 0,
+                        "type": "console"
+                    }
+                ]
             }
         },
         //JLink attach
         {
-            "type": "cortex-debug",
             "name": "JLink attach",
+            "type": "cortex-debug",
             "cwd": "${workspaceRoot}",
             "executable": "${workspaceRoot}/build/CubeMX.elf",
             "request": "attach",
@@ -119,25 +72,13 @@
             "device": "STM32F303VC",
             "interface": "swd",
             "runToEntryPoint": "main",
-            "preLaunchTask": "Build all", // configured in tasks.json
             //"preLaunchCommands" not allowed for JLink
             "svdFile": "${workspaceFolder}/STM32F303.svd", // Include svd to watch device peripherals
             "liveWatch": {
                 "enabled": false,
                 "samplesPerSecond": 4
             },
-            "rttConfig": {
-                "enabled": true,
-                "address": "auto",
-                // "clearSearch": false    // OpenOCD users may have to un-comment this
-                "decoders": [
-                    {
-                        "port": 0,
-                        "type": "console"
-                    }
-                ]
-            },
-            /* "swoConfig":
+            "swoConfig": //no funciona
             {
                 "enabled": false,
                 "cpuFrequency": 16000000,
@@ -153,97 +94,21 @@
                         "encoding": "ascii"
                     }
                 ]
-            }*/
-        },
-        //St-util launch => flash anytime
-        {
-            "name": "st-util launch",
-            "cwd": "${workspaceRoot}",
-            "executable": "${workspaceRoot}/build/CubeMX.elf",
-            "request": "launch",
-            "type": "cortex-debug",
-            "servertype": "stutil",
-            //"serverArgs": ["--connect-under-reset"],
-            "debuggerArgs": [],
-            "device": "STM32F303VCT6", //STM32F303VC en caso de error
-            "interface": "swd",
-            "runToEntryPoint": "main", // otherwise, it starts at reset handler - not interested
-            "preLaunchTask": "Build all", // configured in tasks.json
-            //"preLaunchCommands": [""], //you can execute command instead of task
-            "svdFile": "${workspaceFolder}/STM32F303.svd", // Include svd to watch device peripherals
-            "swoConfig":
-            {
-                "enabled": false, // currently (v1.7.0) not supported
-                "cpuFrequency": 16000000,
-                "swoFrequency": 2000000,
-                "source": "probe",
-                "decoders":
-                [
-                    {
-                        "label": "ITM port 0 output",
-                        "type": "console",
-                        "port": 0,
-                        "showOnStartup": true,
-                        "encoding": "ascii"
-                    }
-                ]
-            }, 
-            //"showDevDebugOutput": "parsed",
-            "postDebugTask": "Kill st-util", //para evitar el error: 
-        },
-        //St-util attach
-        {
-            "name": "st-util attach",
-            "cwd": "${workspaceRoot}",
-            "executable": "${workspaceRoot}/build/CubeMX.elf",
-            "request": "attach",
-            "type": "cortex-debug",
-            "servertype": "stutil",
-            //"serverArgs": ["--connect-under-reset"],
-            "debuggerArgs": [],
-            "device": "STM32F303VCT6", //STM32F303VC en caso de error
-            "interface": "swd",
-            "runToEntryPoint": "main", // else it starts at reset handler - not interested
-            //"preLaunchTask": "Build all", // configured in tasks.json
-            //"preAttachCommands": [""], //you can execute command instead of task
-            "svdFile": "${workspaceFolder}/STM32F303.svd" // Include svd to watch device peripherals
-            //"showDevDebugOutput": "parsed",
-            //"postDebugTask": "Kill st-util",
-        },
-        //SWO separada (serial) --- COPIADO DE CHATGPT => NO FUNCIONA
-        {
-            "name": "SWO Trace (Serial)",
-            "type": "cortex-debug",
-            "request": "attach",
-            "servertype": "external", // no lanza gdbserver, solo abre SWO
-            "gdbTarget": "localhost:50000",
-            //"gdbTarget": "/dev/ttyACM0",
-            "device": "STM32F303VC",  // tiene que estar para cortex-debug
-            "executable": "${workspaceRoot}/build/CubeMX.elf",
-            "swoConfig": {
-                "enabled": true,
-                "cpuFrequency": 16000000,
-                "swoFrequency": 2000000,
-                "source": "serial",
-                "swoPath": "/dev/ttyACM0", //when source=serial
-                //"swoPort": "localhost:50005", //when servertype=external && source=socket
+            },
+            "postAttachCommands": [
+                "monitor swo start 16000000 2250000" //ni con esto funciona SWO
+            ],
+            "rttConfig": {
+                "enabled": false,
+                "address": "auto",
+                // "clearSearch": false    // OpenOCD users may have to un-comment this
                 "decoders": [
-                {
-                        "label": "ITM -> USART",
-                        "type": "console",
+                    {
                         "port": 0,
-                        "showOnStartup": true,
-                        "encoding": "ascii"
+                        "type": "console"
                     }
                 ]
-            }
+            },
         }
-    ],
-    "compounds": [
-        {
-            "name": "Attach & SWO",
-            "configurations": ["STlink attach", "SWO Trace (Serial)"]
-        }
-    ],
-    "inputs": []
+    ]
 }
