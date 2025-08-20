@@ -1,0 +1,29 @@
+//Si tenemos diferentes config., podemos ir cambiando desde el icono de status bar
+{
+    "enableConfigurationSquiggles": true,
+    "configurations": [
+        {
+            "name": "STM32", //permite cambiar de conf. desde el icono de status bar
+            "cStandard": "c99",
+            "cppStandard": "gnu++14",
+            "intelliSenseMode": "linux-gcc-x64",
+            "configurationProvider": "ms-vscode.makefile-tools",
+            "compilerPath": "/opt/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/arm-none-eabi-gcc",
+            "includePath":
+            [
+                "${workspaceFolder}/**"
+            ],
+            "defines":
+            [
+                "USE_HAL_DRIVER",
+                "STM32F303"
+            ],
+            "browse":
+            {
+                "limitSymbolsToIncludedHeaders": true,
+                "databaseFilename": "${workspaceFolder}/.vscode/browse.vc.db"
+            }
+        }
+    ],
+    "version": 4
+}
