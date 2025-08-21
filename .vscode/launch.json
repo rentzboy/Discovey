@@ -21,7 +21,7 @@
             "interface": "swd",
             "runToEntryPoint": "main", // otherwise, it starts at reset handler - not interested
             "preLaunchTask": "Build all", // task configured in tasks.json
-            //"preLaunchCommands" not allowed for JLink
+            "preLaunchCommands": [],
             "svdFile": "${workspaceFolder}/STM32F303.svd", // Include svd to watch device peripherals
             "liveWatch": 
             {
@@ -43,12 +43,12 @@
                         "showOnStartup": true,
                         "encoding": "ascii"
                     }
-                ]
+                ],
             },
             "postLaunchCommands": 
-            [
-                "monitor swo start 16000000 2250000" //ni con esto funciona SWO
-            ],
+                [
+                    "monitor swo start 16000000 2250000" //ni con esto funciona SWO
+                ],
             "rttConfig": 
             {
                 "enabled": false,
@@ -72,7 +72,7 @@
             "device": "STM32F303VC",
             "interface": "swd",
             "runToEntryPoint": "main",
-            //"preLaunchCommands" not allowed for JLink
+            "preAttachCommands": [],
             "svdFile": "${workspaceFolder}/STM32F303.svd", // Include svd to watch device peripherals
             "liveWatch": {
                 "enabled": false,
@@ -101,7 +101,6 @@
             "rttConfig": {
                 "enabled": false,
                 "address": "auto",
-                // "clearSearch": false    // OpenOCD users may have to un-comment this
                 "decoders": [
                     {
                         "port": 0,

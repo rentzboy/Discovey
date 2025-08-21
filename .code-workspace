@@ -8,17 +8,12 @@
 		"C_Cpp.autocomplete": "default",
 		"C_Cpp.errorSquiggles": "disabled",
 		"files.associations": {
-			"main.h": "c",
-			"stm32f3xx_hal.h": "c",
-			"stm32f3xx_hal_usart.h": "c",
-			"stm32f3xx_hal_conf.h": "c",
-			"stm32f3xx_hal_gpio.h": "c",
-			"string.h": "c"
+			"*.h": "c"
 		},
 		//Los he copiado de: https://github.com/prtzl/Embedded_videos/blob/master/045_BUILDING-PT4/test-f407vg/.vscode/settings.json
 		/* armToolchainPath se puede override en launch.json */
 		"cortex-debug.armToolchainPath": "/opt/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi/bin/",
-		"cortex-debug.JLinkGDBServerPath": "/opt/SEGGER/JLink_V812e/JLinkGDBServer",
+		"cortex-debug.JLinkGDBServerPath": "/opt/SEGGER/JLink_V812e/JLinkGDBServerCLExe",
 		"cortex-debug.stutilPath": "/usr/bin/st-util"
 	}
 }
