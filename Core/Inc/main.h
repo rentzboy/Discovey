@@ -69,8 +69,6 @@ void Error_Handler(void);
 #define OSC32_IN_GPIO_Port GPIOC
 #define OSC32_OUT_Pin GPIO_PIN_15
 #define OSC32_OUT_GPIO_Port GPIOC
-#define OSC_IN_Pin GPIO_PIN_0
-#define OSC_IN_GPIO_Port GPIOF
 #define OSC_OUT_Pin GPIO_PIN_1
 #define OSC_OUT_GPIO_Port GPIOF
 #define B1_Pin GPIO_PIN_0
