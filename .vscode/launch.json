@@ -1,5 +1,6 @@
 
-/*  [Launch.json attributes] list: https://code.visualstudio.com/docs/editor/debugging#_launchjson-attributes
+/*  [J-link with VS Code] https://kb.segger.com/J-Link_Visual_Studio_Code
+    [Launch.json attributes] list: https://code.visualstudio.com/docs/editor/debugging#_launchjson-attributes
     [Cortex-Debug attributes] list: https://github.com/Marus/cortex-debug/blob/master/debug_attributes.md
     [Wiki Cortex-Debug]: https://github.com/Marus/cortex-debug/wiki
     Configuration copied from: https://github.com/prtzl/Embedded_videos/tree/master/045_BUILDING-PT4/test-f407vg/.vscode
@@ -14,7 +15,7 @@
             "name": "JLink launch",
             "type": "cortex-debug", //define la lista de atributos para la config. mediante IntelliSense
             "cwd": "${workspaceRoot}",
-            "executable": "${workspaceRoot}/build/CubeMX.elf",
+            "executable": "${workspaceRoot}/build_jlink/CubeMX.elf",
             "request": "launch",
             "servertype": "jlink",
             "device": "STM32F303VC",
@@ -31,8 +32,8 @@
             "swoConfig"://no funciona
             {
                 "enabled": false,
-                "cpuFrequency": 16000000,
-                "swoFrequency": 2000000,
+                "cpuFrequency": 48000000,
+                "swoFrequency": 12000000,
                 "source": "probe",
                 "decoders":
                 [
@@ -47,7 +48,7 @@
             },
             "postLaunchCommands": 
                 [
-                    "monitor swo start 16000000 2250000" //ni con esto funciona SWO
+                    "monitor swo start 48000000 12000000" //ni con esto funciona SWO
                 ],
             "rttConfig": 
             {
@@ -81,8 +82,8 @@
             "swoConfig": //no funciona
             {
                 "enabled": false,
-                "cpuFrequency": 16000000,
-                "swoFrequency": 2250000,
+                "cpuFrequency": 48000000,
+                "swoFrequency": 12000000,
                 "source": "probe",
                 "decoders":
                 [
@@ -96,7 +97,7 @@
                 ]
             },
             "postAttachCommands": [
-                "monitor swo start 16000000 2250000" //ni con esto funciona SWO
+                "monitor swo start 48000000 12000000" //ni con esto funciona SWO
             ],
             "rttConfig": {
                 "enabled": false,
