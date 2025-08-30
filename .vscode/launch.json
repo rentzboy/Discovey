@@ -13,7 +13,7 @@
             "name": "STlink attach",
             "type": "cortex-debug",
             "cwd": "${workspaceRoot}",
-            "executable": "${workspaceRoot}/build/CubeMX.elf",
+            "executable": "${workspaceRoot}/build_stlink/CubeMX.elf",
             "request": "attach",
             "servertype": "stlink", // cortex-debug no admite swo para stlink ni st-util
             "serverArgs": ["--shared", /*"--swo-port", "50005",*/ "--verbose", "--log-level", "31"],
@@ -33,7 +33,7 @@
         {
             "name": "STlink launch",
             "cwd": "${workspaceRoot}",
-            "executable": "${workspaceRoot}/build/CubeMX.elf",
+            "executable": "${workspaceRoot}/build_stlink/CubeMX.elf",
             "request": "launch",
             "type": "cortex-debug",
             "servertype": "stlink", // cortex-debug no admite swo para stlink ni st-util
@@ -56,7 +56,7 @@
             "name": "st-util launch",
             "type": "cortex-debug",
             "cwd": "${workspaceRoot}",
-            "executable": "${workspaceRoot}/build/CubeMX.elf",
+            "executable": "${workspaceRoot}/build_stlink/CubeMX.elf",
             "request": "launch",
             "servertype": "stutil",
             "serverArgs": ["--connect-under-reset"],
@@ -91,7 +91,7 @@
             "name": "st-util attach",
             "type": "cortex-debug",
             "cwd": "${workspaceRoot}",
-            "executable": "${workspaceRoot}/build/CubeMX.elf",
+            "executable": "${workspaceRoot}/build_stlink/CubeMX.elf",
             "request": "attach",
             "servertype": "stutil",
             //"serverArgs": ["--connect-under-reset"],
