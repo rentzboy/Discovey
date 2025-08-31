@@ -67,7 +67,7 @@
             "name": "JLink attach",
             "type": "cortex-debug",
             "cwd": "${workspaceRoot}",
-            "executable": "${workspaceRoot}/build/CubeMX.elf",
+            "executable": "${workspaceRoot}/build_jlink/CubeMX.elf",
             "request": "attach",
             "servertype": "jlink",
             "device": "STM32F303VC",
